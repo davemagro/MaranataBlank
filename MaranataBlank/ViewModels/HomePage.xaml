@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MaranataBlank.ViewModels.HomePage">
+    <Frame 
+        x:Name="frameSearchBar"
+        Padding="0"
+        Margin="0"
+        HasShadow="False"
+        BorderColor="Black"
+        CornerRadius="10"
+        Grid.Row="0"
+        Grid.ColumnSpan="3" 
+        >
+        <SearchBar 
+            x:Name="searchBar"
+            Placeholder="Search location"
+            PlaceholderColor="#333333"
+            TextColor="Black"
+            Text="{Binding searchText}"
+            />
+    </Frame>
+</ContentPage>
