@@ -3,7 +3,6 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="MaranataBlank.Controls.BottomDrawer"
-       HeightRequest="0"
        BackgroundColor="Transparent"
        Padding="0"
        Margin="0"
@@ -24,7 +23,7 @@
             VerticalOptions="FillAndExpand"
             HeightRequest="0"
             x:Name="bottomDrawer"
-            TranslationY="660"
+            TranslationY="10000"
             >
             <Frame 
                 CornerRadius="12" 
@@ -36,7 +35,7 @@
                 </Frame.GestureRecognizers>
                 <StackLayout>
                     <BoxView 
-                        BackgroundColor="#ccc" 
+                        BackgroundColor="#999" 
                         CornerRadius="2" 
                         HeightRequest="5" 
                         WidthRequest="50" 

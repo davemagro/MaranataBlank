@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,9 +13,35 @@ namespace MaranataBlank.Controls
     [ContentProperty("ContainerContent")]
     public partial class BottomDrawer : Frame
     {
-        //private int appHeight = (int)Application.Current.MainPage.Height;
-        private double closeY = 660;
-        private double openY = (Device.RuntimePlatform == "Android") ? 260 : 280;
+        private int appHeight
+        {
+            get => (int)this.Height;
+            set
+            {
+
+            }
+        }
+
+        //private double closeY = 660;
+        private double closeY
+        { 
+            get
+            {
+                // If we have a valid app height, then closeY is equal to it. 
+                // Else, set to 1000, to make sure the frame is never seen.
+                //
+                // Limitation: IsDrawerHandleVisible is considered ignored unless 
+                // appHeight is valid. 
+                return appHeight > 0 ? appHeight - (IsDrawerHandleVisible ? 25 : 0) : 10000;
+            }
+        }
+        private double openY
+        {
+            get
+            {
+                return appHeight > 0 ? appHeight / 2 : ((Device.RuntimePlatform == "Android") ? 260 : 280); 
+            }
+        }
         private double lastPanY = 0;
         private uint duration = 100;
 
@@ -49,9 +75,9 @@ namespace MaranataBlank.Controls
             object newValue
         )
         {
-            Console.WriteLine("IsDrawerHandleVisible Changed: " + newValue); 
+            //Console.WriteLine("IsDrawerHandleVisible Changed: " + newValue); 
             // Manipulate drawer frames here 
-            ((BottomDrawer)bindable).closeY = (bool)newValue ? 635 : 660;
+            //((BottomDrawer)bindable).closeY = (bool)newValue ? 635 : 660;
         }
 
         // Boolean bindable property that determins whether the drawer should 
@@ -103,7 +129,18 @@ namespace MaranataBlank.Controls
         {
             InitializeComponent();
 
-            //Console.WriteLine("Application height: " + appHeight); 
+            // GetScreenHeight(); 
+        }
+
+        public void GetScreenHeight()
+        {
+            bottomDrawer.VerticalOptions = LayoutOptions.End;
+            bottomDrawer.HeightRequest = 100;
+            InputTransparent = false;
+            Console.WriteLine("Bottom coords: " + bottomDrawer.Y);
+            Console.WriteLine("Drawer bg height: " + this.Height);
+            InputTransparent = true; 
+            bottomDrawer.VerticalOptions = LayoutOptions.FillAndExpand; 
         }
 
         public async Task OpenDrawer()
@@ -158,7 +195,7 @@ namespace MaranataBlank.Controls
                     return; 
                 }
 
-                if (lastPanY < openY)
+                if (lastPanY < (openY * 0.70))
                 {
                     // Drawer has been dragged past openY, drag it all the way to the top 
                     await bottomDrawer.TranslateTo(0, 2, duration);
