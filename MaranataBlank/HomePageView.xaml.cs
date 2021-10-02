@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaranataBlank.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,16 +9,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using MaranataBlank.Extensions;
-using MaranataBlank.Models; 
-
 namespace MaranataBlank.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LocationExplorerView : ContentView
+    public partial class HomePageView : ContentPage
     {
-        public LocationExplorerView()
+
+        public HomePageView()
         {
+
             InitializeComponent();
 
             InitializeMapStyle();
@@ -26,13 +26,15 @@ namespace MaranataBlank.Views
             SearchBarToCenter();
 
             PageAwareExtension.AttachLifecycleToPage(this, OnAppearing, null);
+
+            // InitializeMessagincCenterSubscribers();
         }
 
         //
         // Some crazy hack in an attempt to detect whether the view has finished loading.
         //
         private async void OnAppearing(object sender, EventArgs eventArgs)
-        {   
+        {
             // Attach an event handler on the map when the user or code tries to interact with the map. 
             // https://stackoverflow.com/questions/41842089/how-can-i-know-when-a-view-is-finished-rendering
             await Task.Delay(1);  // I'm kinda crazy. 
@@ -56,7 +58,6 @@ namespace MaranataBlank.Views
 
         public void SearchBarToTop()
         {
-            Console.WriteLine("Moving search bar to top!"); 
             // Positions searchBar at the upper most part of the application. 
             frameSearchBar.Margin = 0;
             frameSearchBar.CornerRadius = 0;
@@ -67,7 +68,7 @@ namespace MaranataBlank.Views
         {
             // Initialize the style of the map with the embedded style template. 
 
-            var assembly = typeof(LocationExplorerView).GetTypeInfo().Assembly;
+            var assembly = typeof(HomePageView).GetTypeInfo().Assembly;
             var stream = assembly.GetManifestResourceStream($"MaranataBlank.MapResources.MapStyle.json");
             string styleBuff;
 
@@ -87,16 +88,15 @@ namespace MaranataBlank.Views
         {
             // If the searchBar receives focus, then it should be position at the top of 
             // the application.
-            SearchBarToTop(); 
+            SearchBarToTop();
         }
 
         public void SearchBarUnfocused(object sender, EventArgs e)
         {
-            Console.WriteLine("Focus is gone from search bar"); 
             // Position searchBar at the center if it's empty and looses focus.
             if (string.IsNullOrEmpty(searchBar.Text))
             {
-                SearchBarToCenter(); 
+                SearchBarToCenter();
             }
         }
 
@@ -104,6 +104,5 @@ namespace MaranataBlank.Views
         {
             SearchBarToTop();
         }
-
     }
 }

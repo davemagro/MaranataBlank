@@ -13,8 +13,6 @@ namespace MaranataBlank
         {
             InitializeComponent();
             GoogleMapsApiServices.Initialize(Constants.GoogleMapsApiKey);
-            // MainPage = new MainPage();
-            // MainPage = new HomePage();   // MaranataBlank.Views.HomePage()
             MainPage = new HomePageView();
         }
 

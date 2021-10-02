@@ -1,9 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿//
+// Data-Models for API responses on endpoint: BaseAddress + "api/place/autocomplete/json" 
+// Documentation: https://developers.google.com/maps/documentation/places/web-service/autocomplete
+// 
+
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MaranataBlank.Models
+namespace MaranataBlank.Models.GoogleMapsApi
 {
     public class StructuredFormatting
     {
@@ -32,9 +37,8 @@ namespace MaranataBlank.Models
         public StructuredFormatting StructuredFormatting { get; set; }
     }
 
-    public class GooglePlaceAutocompleteResult
+    public class AutoCompleteApiResult
     {
-        // Model for the api https://developers.google.com/maps/documentation/places/web-service/autocomplete
         [JsonProperty("status")]
         public string Status { get; set; }
 

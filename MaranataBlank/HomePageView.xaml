@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
-             xmlns:viewmodels="clr-namespace:MaranataBlank.ViewModels"
+             xmlns:viewmodels="clr-namespace:MaranataBlank.ViewModels2"
              xmlns:controls="clr-namespace:MaranataBlank.Controls"
-             x:Class="MaranataBlank.Views.HomePageView">
+             x:Class="MaranataBlank.Views2.HomePageView">
 
     <ContentPage.BindingContext>
         <viewmodels:HomePageViewModel />
@@ -47,7 +47,7 @@
                         SearchCommand="{Binding GetPlacesPredictionCommand}"
                         SearchCommandParameter="{Binding searchText}"
                         Placeholder="Search location"
-                        PlaceholderColor="#999"
+                        PlaceholderColor="#333333"
                         TextColor="Black"
                         Focused="SearchBarFocused"
                         Unfocused="SearchBarUnfocused"
@@ -109,14 +109,7 @@
                 >
                 <controls:BottomDrawer.FrameContent>
                     <StackLayout>
-                        <Label 
-                            Text="{Binding ActiveLocation.SecondaryText}" 
-                            FontSize="18" 
-                            TextColor="#555555" 
-                            FontAttributes="Bold,Italic"
-                            FontFamily="NotoSansDisplayBlack"
-                        >
-                        </Label>
+                        <Label Text="{Binding ActiveLocation.SecondaryText}" FontSize="18" TextColor="#555555"/>
                         <Grid>
                             <ScrollView>
                                 <Label Text="Analyzed location data is to be put here!"/>

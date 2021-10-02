@@ -11,15 +11,38 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="MapStyle.json" />
+    <Compile Remove="ViewModels_Old\**" />
+    <Compile Remove="Views_Old2\**" />
+    <Compile Remove="Views_Old\**" />
+    <EmbeddedResource Remove="ViewModels_Old\**" />
+    <EmbeddedResource Remove="Views_Old2\**" />
+    <EmbeddedResource Remove="Views_Old\**" />
+    <None Remove="ViewModels_Old\**" />
+    <None Remove="Views_Old2\**" />
+    <None Remove="Views_Old\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="MapResources\MapStyle.json" />
+    <Compile Remove="HomePageView.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="HomePageView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="MapStyle.json" />
+    <None Remove="Resources\Fonts\NotoSansDisplay-Black.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Fonts\NotoSansDisplay-Black.ttf" />
+    <EmbeddedResource Include="Resources\Maps\MapStyle.json" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Xam.Plugin.SimpleBottomDrawer" Version="1.0.9" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />
@@ -27,23 +50,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ViewModels\HomePage.xaml">
+    <EmbeddedResource Update="Controls\BottomDrawer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\HomePageView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\LocationExplorerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\LocationStatsExplorerView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\HomePageView.xaml.cs">
-      <DependentUpon>HomePageView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>
