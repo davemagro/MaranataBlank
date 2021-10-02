@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 using MaranataBlank.Models;
+using System.Threading.Tasks;
 
 namespace MaranataBlank.Controls
 {
@@ -28,14 +29,12 @@ namespace MaranataBlank.Controls
 
         public static async void FocusedCoordinatesPropertyChanged(BindableObject bindable, object oldVal, object newVal)
         {
-            Console.WriteLine("UPDATEING MAP FOCUS!"); 
-            await ((ExtendedGoogleMaps)bindable).MoveCamera(
-                CameraUpdateFactory.NewPosition(
-                    new Position(
-                        ((Coordinates)newVal).Latitude,
-                        ((Coordinates)newVal).Longitude
-                    )
-                )    
+            Console.WriteLine("UPDATEING MAP FOCUS!");
+            ((ExtendedGoogleMaps)bindable).MoveToRegion(
+                MapSpan.FromCenterAndRadius(
+                    new Position(((Coordinates)newVal).Latitude, ((Coordinates)newVal).Longitude),
+                    Distance.FromMiles(10)
+                )
             );
         }
     }
