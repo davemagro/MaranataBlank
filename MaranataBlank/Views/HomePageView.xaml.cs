@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
 using Xamarin.Forms.Xaml;
 
 namespace MaranataBlank.Views
@@ -102,6 +103,13 @@ namespace MaranataBlank.Views
         public void MapFocused(object sender, EventArgs e)
         {
             SearchBarToTop();
+        }
+
+        public void MapFocused(object sender, MapClickedEventArgs e)
+        {
+            Position _pos = e.Point;
+            
+
         }
     }
 }

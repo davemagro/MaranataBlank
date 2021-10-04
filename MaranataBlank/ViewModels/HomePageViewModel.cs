@@ -18,17 +18,38 @@ namespace MaranataBlank.ViewModels
         // Services to be used by the viewmodel; 
         // 
         private IGoogleMapsApiServices googleMapsApiServices;
+        private IGeneralDataAnalysisServices dataAnalysisServices;
 
+        private bool _drawerHandleVisible { get; set; } = false;
+        private bool _drawerVisible { get; set; } = false;
+        public bool DrawerHandleVisible
+        {
+            get => _drawerHandleVisible;
+            set
+            {
+                _drawerHandleVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool DrawerVisible
+        {
+            get => _drawerVisible;
+            set
+            {
+                _drawerVisible = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public bool _isLoadingContent { get; set; } = false;
+        private bool _isLoadingContent { get; set; } = false;
 
         public bool IsLoadingContent
         {
-            get => _isLoadingContent; 
+            get => _isLoadingContent;
             set
             {
                 _isLoadingContent = value;
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
 
@@ -83,6 +104,7 @@ namespace MaranataBlank.ViewModels
             }
         }
 
+        // The selected search prediction 
         private SearchPrediction _locationSelected { get; set; }
         public SearchPrediction LocationSelected
         {
@@ -91,41 +113,33 @@ namespace MaranataBlank.ViewModels
             {
                 _locationSelected = value;
                 if (_locationSelected != null) {
-                    PredictionSelectedCommand.Execute(_locationSelected); 
+                    PredictionSelectedCommand.Execute(_locationSelected);
                     searchPredictions = new ObservableCollection<SearchPrediction>();
                 }
             }
         }
 
+        // The location details to which the stats explorer will determine the 
+        // statistics data to use in analysis. 
         private LocationGeoDetails _activeLocation { get; set; }
         public LocationGeoDetails ActiveLocation
         {
-            get => _activeLocation; 
+            get => _activeLocation;
             set
             {
                 _activeLocation = value;
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
 
-        private bool _drawerHandleVisible { get; set; } = false;
-        private bool _drawerVisible { get; set; } = false; 
-        public bool DrawerHandleVisible
-        {
-            get => _drawerHandleVisible; 
+        // The statistics object to which the stats explorer rely on 
+        private LocationStatistics _activeStatistics { get; set; }
+        public LocationStatistics ActiveStatistics {
+            get => _activeStatistics;
             set
             {
-                _drawerHandleVisible = value;
-                OnPropertyChanged(); 
-            }
-        }
-        public bool DrawerVisible
-        {
-            get => _drawerVisible; 
-            set
-            {
-                _drawerVisible = value;
-                OnPropertyChanged(); 
+                _activeStatistics = value;
+                OnPropertyChanged();
             }
         }
 
@@ -147,17 +161,26 @@ namespace MaranataBlank.ViewModels
             DrawerVisible = true;
             // Show activity indicator
             IsLoadingContent = true;
+
+            ActiveStatistics = new LocationStatistics(); 
+            ActiveStatistics = await dataAnalysisServices.AnalyzeDataForLocation(ActiveLocation);
+            IsLoadingContent = false;
         }
+
+        
 
         public HomePageViewModel()
         {
             // Initialize services 
-            googleMapsApiServices = new GoogleMapsApiServices();
+            //googleMapsApiServices = new GoogleMapsApiServices();
+            googleMapsApiServices = new MockGoogleMapsApiServices();
             // dataAnalysisServices = new GeneralDataAnalysisServices(); 
+            dataAnalysisServices = new MockGeneralDataAnalysisServices(); 
 
             // Initialize bindable properties 
             searchText = null;
             searchPredictions = new ObservableCollection<SearchPrediction>();
+            ActiveStatistics = new LocationStatistics(); 
 
             // Initialize commands 
             GetPlacesPredictionCommand = new Command<string>(async param => await GetPlacesPrediction(param));

@@ -4,11 +4,19 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              xmlns:viewmodels="clr-namespace:MaranataBlank.ViewModels"
              xmlns:controls="clr-namespace:MaranataBlank.Controls"
+             xmlns:converters="clr-namespace:MaranataBlank.Converters"
              x:Class="MaranataBlank.Views.HomePageView">
 
     <ContentPage.BindingContext>
         <viewmodels:HomePageViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:WholeNumberfyBase x:Key="WholeNumberfyBase" />
+            <converters:WholeNumberfyPercentage x:Key="WholeNumberfyPercentage" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <Grid>
@@ -25,6 +33,7 @@
                     Grid.RowSpan="3"
                     Grid.ColumnSpan="2"
                     FocusedCoordinates="{Binding ActiveLocation.Coordinates}"
+                    MapClicked="MapClicked"
                     >
                 </controls:ExtendedGoogleMaps>
             
@@ -114,19 +123,72 @@
                             FontSize="18" 
                             TextColor="#555555" 
                             FontAttributes="Bold,Italic"
-                            FontFamily="NotoSansDisplayBlack"
+                            FontFamily="NotoSansDisplaySemiBold"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Padding="0"
+                            Margin="0"
                         >
                         </Label>
                         <Grid>
-                            <ScrollView>
-                                <Label Text="Analyzed location data is to be put here!"/>
+                            <ScrollView Padding="20">
+                                <StackLayout Orientation="Vertical">
+                                    <Grid RowDefinitions="auto,auto,auto" ColumnDefinitions="*,*" RowSpacing="30">
+                                        <controls:DataView Caption="active cases" Data="{Binding ActiveStatistics.Infected, FallbackValue='XXX'}" Grid.Row="0" Grid.Column="0" />
+                                        <!--<controls:DataView Caption="Total Cases" Data="XXX" Grid.Row="0" Grid.Column="1"/>-->
+                                        <controls:DataView 
+                                            Caption="{Binding ActiveStatistics.InfectionRate, 
+                                                FallbackValue='EMPTY', 
+                                                Converter={StaticResource WholeNumberfyBase}, 
+                                                StringFormat='people out of {0:F0} gets infected'}" 
+                                            Data="{Binding ActiveStatistics.InfectionRate, 
+                                                FallbackValue='XXX',
+                                                Converter={StaticResource WholeNumberfyPercentage},
+                                                StringFormat='{0:F2}'}" 
+                                            Grid.Row="0" 
+                                            Grid.Column="1"
+                                            />
+                                        <controls:DataView 
+                                            Caption="{Binding ActiveStatistics.FatalityRate, 
+                                                FallbackValue='EMPTY', 
+                                                Converter={StaticResource WholeNumberfyBase},
+                                                StringFormat='people out of {0:F0} infected dies'}"
+                                            Data="{Binding ActiveStatistics.FatalityRate, 
+                                                FallbackValue='XXX',
+                                                Converter={StaticResource WholeNumberfyPercentage}, 
+                                                StringFormat='{0:F2}'}" 
+                                            Grid.Row="1" 
+                                            Grid.Column="0"
+                                            />
+                                        <controls:DataView 
+                                            Caption="{Binding ActiveStatistics.RecoveryRate,
+                                                FallbackValue='EMPTY', 
+                                                Converter={StaticResource WholeNumberfyBase}, 
+                                                StringFormat='people out of {0:F0} infected recovers'}"
+                                            Data="{Binding ActiveStatistics.RecoveryRate, 
+                                                FallbackValue='XXX', 
+                                                Converter={StaticResource WholeNumberfyPercentage}, 
+                                                StringFormat='{0:F2}'}" 
+                                            Grid.Row="1" 
+                                            Grid.Column="1"
+                                            />
+                                    </Grid>
+                                    <Label HorizontalOptions="Center" TextColor="#aaa" Margin="0,50,0,0">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Data source: "/>
+                                                <Span Text="{Binding ActiveStatistics.Source}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
                             </ScrollView>
                             <StackLayout 
                                 BackgroundColor="#ccc" 
-                                VerticalOptions="Center" 
+                                VerticalOptions="Start" 
                                 HorizontalOptions="Center" 
                                 Padding="30"
-                                Margin="30"
+                                Margin="20"
                                 IsVisible="{Binding IsLoadingContent}"
                                 >
                                 <ActivityIndicator 

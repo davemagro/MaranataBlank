@@ -22,6 +22,7 @@ namespace MaranataBlank.Services
         {
             // Initialize http client 
             _httpClient = CreateClient();
+            long timestamp =  DateTimeOffset.Now.ToUnixTimeMilliseconds();
         } 
 
         public static void Initialize(string apiKey)
