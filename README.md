@@ -4,7 +4,8 @@
   - [ ] SUGGESTION: A semi-circle gauge chart
   
     ![alt text](Docs/gauge-chart.png "Gauge chart")  
-  - [ ] Research for available methodologies that can be used for available data!
+  - [ ] Research for available methodologies that can be used with available data!
+- [ ] Highlight selected area in the map! 
 
 ## Minor TODOs:
 - [ ] Splash screen 
