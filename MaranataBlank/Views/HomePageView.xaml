@@ -33,7 +33,6 @@
                     Grid.RowSpan="3"
                     Grid.ColumnSpan="2"
                     FocusedCoordinates="{Binding ActiveLocation.Coordinates}"
-                    MapClicked="MapClicked"
                     >
                 </controls:ExtendedGoogleMaps>
             
