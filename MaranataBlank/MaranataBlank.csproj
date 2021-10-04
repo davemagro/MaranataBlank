@@ -33,10 +33,16 @@
   <ItemGroup>
     <None Remove="MapStyle.json" />
     <None Remove="Resources\Fonts\NotoSansDisplay-Black.ttf" />
+    <None Remove="Resources\Fonts\NotoSansDisplay-Light.ttf" />
+    <None Remove="Resources\Fonts\NotoSansDisplay-Regular.ttf" />
+    <None Remove="Resources\Fonts\NotoSansDisplay-SemiBold.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\NotoSansDisplay-Black.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\NotoSansDisplay-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\NotoSansDisplay-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\NotoSansDisplay-SemiBold.ttf" />
     <EmbeddedResource Include="Resources\Maps\MapStyle.json" />
   </ItemGroup>
 
@@ -51,6 +57,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Controls\BottomDrawer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\DataView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
