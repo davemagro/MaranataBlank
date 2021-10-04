@@ -12,6 +12,8 @@
 
     <Frame.GestureRecognizers>
         <TapGestureRecognizer Tapped="BackgroundFrameTapped" />
+        <PanGestureRecognizer PanUpdated="BackgroundFramePanUpdated"/>
+        <PinchGestureRecognizer PinchUpdated="BackgroundFramePinchUpdated"/>
     </Frame.GestureRecognizers>
 
     <Frame.Content>
@@ -40,11 +42,11 @@
                         HeightRequest="5" 
                         WidthRequest="50" 
                         HorizontalOptions="Center" 
-                        Margin="0,0,5,0"
+                        Margin="0,0,0,0"
                         />
                     <Frame
-                        x:Name="bottomDrawerContent"
                         Padding="0"
+                        x:Name="bottomDrawerContent"
                         Margin="0"
                         HasShadow="False"
                         />

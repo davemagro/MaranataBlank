@@ -168,7 +168,17 @@ namespace MaranataBlank.Controls
             if (IsBackdropEnabled == true)
                 IsDrawerVisible = false;
         }
-        
+
+        public async void BackgroundFramePinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+        {
+            BackgroundFrameTapped(sender, new EventArgs()); 
+        }
+
+        public async void BackgroundFramePanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            BackgroundFrameTapped(sender, new EventArgs());
+        }
+
         public async void DrawerPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             if (e.StatusType == GestureStatus.Running)
